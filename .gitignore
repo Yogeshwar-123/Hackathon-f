@@ -1,0 +1,15 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# Python virtual environment and cache folders
+.venv/
+__pycache__/
+backend/.venv/
+backend/__pycache__/
+backend/static/invoices/*.pdf
