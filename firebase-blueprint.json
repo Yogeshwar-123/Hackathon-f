@@ -1,0 +1,246 @@
+{
+  "entities": {
+    "Profile": {
+      "title": "Profile",
+      "description": "User business profile settings",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Owner name" },
+        "email": { "type": "string", "description": "Owner email address" },
+        "businessName": { "type": "string", "description": "Business brand name" },
+        "businessType": { "type": "string", "description": "Niche of business operations" },
+        "currency": { "type": "string", "description": "Active currency symbol, e.g. INR" }
+      },
+      "required": ["name", "email", "businessName"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Solar panels, inverters, and utility hardware inventory tracker",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique key identifier" },
+        "name": { "type": "string", "description": "Display name of hardware" },
+        "sku": { "type": "string", "description": "Stock keeping unit" },
+        "category": { "type": "string", "description": "Product category" },
+        "price": { "type": "number", "description": "Unit retail price" },
+        "cost": { "type": "number", "description": "Unit manufacture cost" },
+        "quantity": { "type": "number", "description": "Available stock volume" },
+        "minStock": { "type": "number", "description": "Minimum threshold before restock alert" },
+        "description": { "type": "string", "description": "Details about hardware specs" },
+        "supplier": { "type": "string", "description": "Supplier brand or agency" }
+      },
+      "required": ["id", "name", "sku", "price", "quantity"]
+    },
+    "Invoice": {
+      "title": "Invoice",
+      "description": "Client transaction receipts and billing entries",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "invoiceNumber": { "type": "string" },
+        "clientName": { "type": "string" },
+        "clientEmail": { "type": "string" },
+        "issueDate": { "type": "string" },
+        "dueDate": { "type": "string" },
+        "items": {
+          "type": "array",
+          "description": "Invoiced products",
+          "items": { "type": "object" }
+        },
+        "subtotal": { "type": "number" },
+        "taxRate": { "type": "number" },
+        "taxAmount": { "type": "number" },
+        "total": { "type": "number" },
+        "status": { "type": "string", "enum": ["paid", "unpaid", "overdue"] },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "invoiceNumber", "clientName", "total", "status"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Ledger revenue and expense entries",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "type": { "type": "string", "enum": ["revenue", "expense"] },
+        "category": { "type": "string" },
+        "amount": { "type": "number" },
+        "description": { "type": "string" }
+      },
+      "required": ["id", "date", "type", "amount", "description"]
+    },
+    "Vehicle": {
+      "title": "Vehicle",
+      "description": "Logistics fleet tracking vehicles",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "plateNumber": { "type": "string" },
+        "driverName": { "type": "string" },
+        "driverPhone": { "type": "string" },
+        "status": { "type": "string", "enum": ["transit", "complete", "idle"] },
+        "currentLat": { "type": "number" },
+        "currentLng": { "type": "number" },
+        "startLat": { "type": "number" },
+        "startLng": { "type": "number" },
+        "destLat": { "type": "number" },
+        "destLng": { "type": "number" },
+        "eta": { "type": "string" },
+        "originName": { "type": "string" },
+        "destinationName": { "type": "string" },
+        "unexpectedStopAlert": { "type": "boolean" },
+        "routeProgress": { "type": "number" },
+        "stopsMade": { "type": "array", "items": { "type": "object" } }
+      },
+      "required": ["id", "plateNumber", "driverName", "status"]
+    },
+    "FaceScan": {
+      "title": "FaceScan",
+      "description": "Logistics workforce facial authentication checks",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "employeeName": { "type": "string" },
+        "employeeId": { "type": "string" },
+        "type": { "type": "string", "enum": ["load", "unload"] },
+        "status": { "type": "string", "enum": ["success", "failed"] },
+        "timestamp": { "type": "string" },
+        "location": { "type": "string" },
+        "vehicleId": { "type": "string" },
+        "vehiclePlate": { "type": "string" },
+        "matchScore": { "type": "number" },
+        "photoUrl": { "type": "string" }
+      },
+      "required": ["id", "employeeName", "type", "status", "timestamp"]
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "Business client records",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "company": { "type": "string" },
+        "address": { "type": "string" },
+        "totalSales": { "type": "number" },
+        "joinDate": { "type": "string" }
+      },
+      "required": ["id", "name", "email"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "Enterprise operations task dispatcher",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "recurrence": { "type": "string" },
+        "nextRun": { "type": "string" },
+        "urgency": { "type": "string" },
+        "assignedStaff": { "type": "string" },
+        "notified": { "type": "boolean" },
+        "completed": { "type": "boolean" }
+      },
+      "required": ["id", "title", "urgency", "completed"]
+    },
+    "Workforce": {
+      "title": "Workforce",
+      "description": "Enterprise employee ledger",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "sector": { "type": "string" },
+        "status": { "type": "string" },
+        "hourlyRate": { "type": "number" },
+        "totalWagesPaid": { "type": "number" },
+        "unpaidWages": { "type": "number" },
+        "completedTasks": { "type": "number" },
+        "phone": { "type": "string" }
+      },
+      "required": ["id", "name", "role", "hourlyRate"]
+    },
+    "WorkerAction": {
+      "title": "WorkerAction",
+      "description": "Wages logged actions by team members",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "workerId": { "type": "string" },
+        "workerName": { "type": "string" },
+        "action": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "workUnits": { "type": "number" },
+        "unitType": { "type": "string" },
+        "calculatedWage": { "type": "number" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "workerId", "action", "calculatedWage"]
+    },
+    "Backup": {
+      "title": "Backup",
+      "description": "Local archival points",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "year": { "type": "string" },
+        "month": { "type": "string" },
+        "label": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "snapshot": { "type": "object" }
+      },
+      "required": ["id", "year", "month", "timestamp"]
+    }
+  },
+  "firestore": {
+    "profile/business": {
+      "schema": "Profile",
+      "description": "Business settings"
+    },
+    "products/{productId}": {
+      "schema": "Product",
+      "description": "Inventory hardware"
+    },
+    "invoices/{invoiceId}": {
+      "schema": "Invoice",
+      "description": "Client invoice entries"
+    },
+    "transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "General ledger cash ledger"
+    },
+    "vehicles/{vehicleId}": {
+      "schema": "Vehicle",
+      "description": "Vehicle fleets"
+    },
+    "facescans/{scanId}": {
+      "schema": "FaceScan",
+      "description": "Facial identification biometric access audits"
+    },
+    "customers/{customerId}": {
+      "schema": "Customer",
+      "description": "Client entities list"
+    },
+    "tasks/{taskId}": {
+      "schema": "Task",
+      "description": "Enterprise operation tasks list"
+    },
+    "workforce/{workerId}": {
+      "schema": "Workforce",
+      "description": "Employee database list"
+    },
+    "workerActions/{actionId}": {
+      "schema": "WorkerAction",
+      "description": "Logged work timesheet actions"
+    },
+    "backups/{backupId}": {
+      "schema": "Backup",
+      "description": "Local archive database snapshots list"
+    }
+  }
+}
